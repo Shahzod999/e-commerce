@@ -12,7 +12,7 @@ const createUser = asyncHandler(async (req, res) => {
 
   const userExist = await User.findOne({ email });
 
-  if (userExist) res.status(400).send("User already exists");
+  if (userExist) return res.status(400).send("User already exists");
   //
   const salt = await bcrypt.genSalt(10); //тут мы мутим воду создаем соль
   const hashedPassword = await bcrypt.hash(password, salt); //добавляем эту соль внутри нашего пароля чтобы запутать пароль
@@ -38,6 +38,10 @@ const createUser = asyncHandler(async (req, res) => {
 const loginUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    throw new Error("Password and Email required");
+  }
+
   const existingUser = await User.findOne({ email });
 
   if (existingUser) {
@@ -52,6 +56,8 @@ const loginUser = asyncHandler(async (req, res) => {
       });
       return;
     }
+  } else {
+    res.status(401).send("User not registered");
   }
 });
 
