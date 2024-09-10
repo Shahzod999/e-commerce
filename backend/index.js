@@ -4,7 +4,8 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 
 import connectDB from "./config/db.js";
-import useRoutes from "./routes/userRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
 
 dotenv.config();
 //dotenv.config(): Загружает переменные окружения из файла .env в process.env. Это позволяет использовать их в приложении.
@@ -23,6 +24,7 @@ app.use(cookieParser());
 // app.use(cookieParser());: Этот middleware позволяет вашему приложению работать с cookies, парсить их и сохранять в req.cookies.
 //Middleware end
 
-app.use("/api/users", useRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/category", categoryRoutes);
 
 app.listen(port, () => console.log(`Server running on port: ${port}`));
