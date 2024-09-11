@@ -10,7 +10,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 import { RiArrowDropUpLine } from "react-icons/ri";
 
 const Navigation = () => {
-  const dispathc = useDispatch();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { userInfo } = useSelector((state) => state.auth);
   const [logoutApiCall] = useLogoutMutation();
@@ -31,7 +31,7 @@ const Navigation = () => {
   const logoutHandler = async () => {
     try {
       await logoutApiCall().unwrap();
-      dispathc(logout());
+      dispatch(logout());
       navigate("/login");
     } catch (error) {
       console.error(error);

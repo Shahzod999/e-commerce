@@ -22,6 +22,8 @@ const UserList = () => {
     if (window.confirm("Are u sure?")) {
       try {
         await deleteUser(id);
+        toast.success("User Deleted");
+        console.log(users);
       } catch (error) {
         toast.error(error.data.message || error.error);
       }

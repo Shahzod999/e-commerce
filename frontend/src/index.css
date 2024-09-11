@@ -9,5 +9,6 @@ body {
 
 input,
 textarea {
-  color: #000;
+  color: #ffffff;
+  background-color: #0f0f10 !important;
 }

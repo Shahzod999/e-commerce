@@ -35,7 +35,7 @@ const CategoryList = () => {
     }
   };
 
-  const handleUpdateCategory = async () => {
+  const handleUpdateCategory = async (e) => {
     e.preventDefault();
 
     if (!updatingName) {
@@ -44,15 +44,37 @@ const CategoryList = () => {
     }
     try {
       const result = await updatedCategory({ categoryId: selectedCategory._id, updatedCategory: { name: updatingName } }).unwrap();
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(`${result.name} is updated`);
+        setSelectedCategory(null);
+        setUpdatingName("");
+        setModalVisible(false);
+      }
     } catch (error) {
       console.log(error);
     }
   };
-  const handleDeleteCategory = async () => {};
+  const handleDeleteCategory = async () => {
+    try {
+      const result = await deleteCategory(selectedCategory._id).unwrap();
+      if (result.error) {
+        toast.error(result.error);
+      } else {
+        toast.success(`${result.name} is deleted`);
+        setSelectedCategory(null);
+        setModalVisible(false);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Category deletion failed. Try again");
+    }
+  };
 
   return (
     <div className="ml-[10re] flex flex-col md:flex-row">
-      <div className="md:w-3/4 p-3">
+      <div className="md:w-3/4 p-3 m-auto">
         <div className="h-12">Manage Category</div>
 
         <CategoryForm value={name} setValue={setName} handleSubmit={handleCreatCategory} />
