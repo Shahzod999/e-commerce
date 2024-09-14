@@ -7,6 +7,7 @@ import connectDB from "./config/db.js";
 import userRoutes from "./routes/userRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import uploadsRouts from "./routes/uploadsRouts.js";
 
 dotenv.config();
 //dotenv.config(): Загружает переменные окружения из файла .env в process.env. Это позволяет использовать их в приложении.
@@ -28,4 +29,9 @@ app.use(cookieParser());
 app.use("/api/users", userRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/products", productRoutes);
+app.use("/api/upload", uploadsRouts);
+
+const __dirname = path.resolve();
+app.use("/uploads", express.static(path.join(__dirname + "/uploads")));
+
 app.listen(port, () => console.log(`Server running on port: ${port}`));
