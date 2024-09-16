@@ -1,7 +1,6 @@
 import { PRODUCT_URL, UPLOAD_URL } from "../constants";
 import { apiSlice } from "./apiSlice";
 
-
 export const productApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getProducts: builder.query({
@@ -14,7 +13,7 @@ export const productApiSlice = apiSlice.injectEndpoints({
       providesTags: ["Product"],
     }),
 
-    getProductById: (builder) => ({
+    getProductById: builder.query({
       query: (productId) => `${PRODUCT_URL}/${productId}`,
       providesTags: (result, error, productId) => [
         {
@@ -22,7 +21,6 @@ export const productApiSlice = apiSlice.injectEndpoints({
           id: productId,
         },
       ],
-      // providesTags используется для кеширования данных и помогает RTK Query отслеживать состояние запроса
     }),
 
     allProducts: builder.query({

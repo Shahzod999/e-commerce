@@ -4,6 +4,7 @@ import { useCreateCategoryMutation, useUpdateCategoryMutation, useDeleteCategory
 import { toast } from "react-toastify";
 import CategoryForm from "../../components/CategoryForm";
 import Modal from "../../components/Modal";
+import AdminMenu from "./AdminMenu";
 
 const CategoryList = () => {
   const { data: categories } = useFetchCategoriesQuery();
@@ -74,6 +75,7 @@ const CategoryList = () => {
 
   return (
     <div className="ml-[10re] flex flex-col md:flex-row">
+      <AdminMenu />
       <div className="md:w-3/4 p-3 m-auto">
         <div className="h-12">Manage Category</div>
 
