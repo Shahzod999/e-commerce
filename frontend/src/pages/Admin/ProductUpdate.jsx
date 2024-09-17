@@ -16,10 +16,12 @@ const ProductUpdate = () => {
   const [category, setCategory] = useState(productData?.category || "");
   const [brand, setBrand] = useState(productData?.brand || "");
   const [stock, setStock] = useState(productData?.countInStock || "");
+  const [selectedCategory, setSelectedCategory] = useState("Choose Category");
 
   const navigate = useNavigate();
 
   const { data: categories = [] } = useFetchCategoriesQuery();
+
   const [uploadProductImage] = useUploadProductImageMutation();
   const [updateProduct] = useUpdateProductMutation();
   const [deleteProduct] = useDeleteProductMutation();
@@ -29,12 +31,18 @@ const ProductUpdate = () => {
       setName(productData.name);
       setDescription(productData.description);
       setPrice(productData.price);
-      setCategory(productData.categories?._id);
+      setCategory(productData.category);
       setQuantity(productData.quantity);
       setBrand(productData.brand);
       setImage(productData.image);
+      setStock(productData?.countInStock);
     }
   }, [productData]);
+
+  useEffect(() => {
+    const selected = categories.find((c) => c._id == category)?.name;
+    setSelectedCategory(selected);
+  }, [category]);
 
   const uploadFileHandler = async (e) => {
     const formData = new FormData();
@@ -47,8 +55,50 @@ const ProductUpdate = () => {
       toast.error("Item added not Good");
     }
   };
-  const handleSubmit = () => {};
-  const handleDelete = () => {};
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (!category) {
+      return toast.error("Category required");
+    }
+    try {
+      const formData = new FormData();
+      formData.append("image", image);
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("quantity", quantity);
+      formData.append("brand", brand);
+      formData.append("countInStock", stock);
+
+      const { data } = await updateProduct({ productId: params.id, formData });
+      if (data.error) {
+        toast.error(data.error);
+      } else {
+        toast.success(`Products successfully updated`);
+        navigate("/admin/allProductsList");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Products update failed. Try again later");
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      let answer = window.confirm("Are u sure u want to delete this product?");
+      if (!answer) return;
+
+      const { data } = await deleteProduct(params.id);
+      toast.success(`${data.name} is deleted`);
+      navigate("/admin/allProductsList");
+    } catch (error) {
+      console.log(error);
+      toast.error("Delete failed. Try again");
+    }
+  };
 
   return (
     <div className="container xl:mx-[9rem] sm:mx-[0]">
@@ -103,12 +153,13 @@ const ProductUpdate = () => {
               <div>
                 <label htmlFor="name block">Count In Stock</label>
                 <br />
-                <input type="text" className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white" value={stock} onChange={(e) => setStock(e.target.value)} />
+                <input type="number" className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white" value={stock} onChange={(e) => setStock(e.target.value)} />
               </div>
 
               <div>
                 <label htmlFor="">Category</label> <br />
                 <select placeholder="Choose Category" className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white" onChange={(e) => setCategory(e.target.value)}>
+                  <option value="">{selectedCategory}</option>
                   {categories?.map((c) => (
                     <option value={c._id} key={c._id}>
                       {c.name}

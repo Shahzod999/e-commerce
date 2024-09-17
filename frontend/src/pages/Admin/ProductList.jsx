@@ -35,8 +35,9 @@ const ProductList = () => {
       productData.append("countInStock", stock);
 
       const { data } = await createProduct(productData);
+      console.log(data, "list");
       if (data.error) {
-        toast.error("Product create failed. Try again");
+        toast.error(`${data.error} Try again`);
       } else {
         toast.success(`${data.name} is created`);
         navigate("/");
@@ -116,12 +117,13 @@ const ProductList = () => {
               <div>
                 <label htmlFor="name block">Count In Stock</label>
                 <br />
-                <input type="text" className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white" value={stock} onChange={(e) => setStock(e.target.value)} />
+                <input type="number" className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white" value={stock} onChange={(e) => setStock(e.target.value)} />
               </div>
 
               <div>
                 <label htmlFor="">Category</label> <br />
                 <select placeholder="Choose Category" className="p-4 mb-3 w-[30rem] border rounded-lg bg-[#101011] text-white" onChange={(e) => setCategory(e.target.value)}>
+                  <option value="">Choose Category</option>
                   {categories?.map((c) => (
                     <option value={c._id} key={c._id}>
                       {c.name}

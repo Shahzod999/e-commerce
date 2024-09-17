@@ -4,6 +4,7 @@ import Loader from "../../components/Loader";
 import { toast } from "react-toastify";
 import { useGetUsersQuery, useDeleteUserMutation, useUpdateUserMutation } from "../../redux/api/usersApiSlice";
 import Message from "../../components/Message";
+import AdminMenu from "./AdminMenu";
 
 const UserList = () => {
   const { data: users, refetch, isLoading, error } = useGetUsersQuery();
@@ -55,14 +56,13 @@ const UserList = () => {
 
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-semibold mb-4 text-white">Users</h1>
       {isLoading ? (
         <Loader />
       ) : error ? (
         <Message variant="danger">{error?.data.message || error.message}</Message>
       ) : (
         <div className="flex flex-col md:flex-row">
-          {/*<AdminMenu/>*/}
+          <AdminMenu />
           <table className="w-full md:w-4/5 mx-auto text-white">
             <thead>
               <tr>

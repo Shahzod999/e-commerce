@@ -22,7 +22,7 @@ const AllProducts = () => {
 
           <div className="flex flex-wrap justify-around items-center">
             {products.map((product) => (
-              <Link key={products._id} to={`/admin/product/update/${product._id}`} className="block mb-4 overflow-hidden">
+              <Link key={product._id} to={`/admin/product/update/${product._id}`} className="block mb-4 overflow-hidden">
                 <div className="flex">
                   <img src={product.image} alt={product.name} className="w-[10rem] object-cover" />
                   <div className="p-4 flex flex-col justify-around">
