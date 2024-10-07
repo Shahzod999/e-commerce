@@ -8,6 +8,7 @@ import { useLogoutMutation } from "../../redux/api/usersApiSlice";
 import { logout } from "../../redux/features/auth/authSlice";
 import { RiArrowDropDownLine } from "react-icons/ri";
 import { RiArrowDropUpLine } from "react-icons/ri";
+import FavoritesCount from "../Products/FavoritesCount";
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const Navigation = () => {
         <Link to="/favorite" className="flex items-center transition-transform transform hover:translate-x-2">
           <FaHeart className="mr-2 mt-[3rem]" size={26} />
           <span className="hidden nav-item-name mt-[3rem]">Favorite</span>
+          <FavoritesCount />
         </Link>
       </div>
 

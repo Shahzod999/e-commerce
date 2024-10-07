@@ -10,7 +10,6 @@ const HeartIcon = ({ product }) => {
   const favorites = useSelector((state) => state.favorites) || [];
   const isFavorite = favorites.some((p) => p._id == product._id);
 
-  console.log(isFavorite, "55");
   useEffect(() => {
     const favoritesFromLocalStorage = getFavoritesFromLocalStorage();
     dispatch(setFavorites(favoritesFromLocalStorage));

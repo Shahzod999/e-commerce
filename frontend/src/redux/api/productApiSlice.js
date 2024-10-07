@@ -7,7 +7,6 @@ export const productApiSlice = apiSlice.injectEndpoints({
       query: ({ keyword }) => ({
         url: `${PRODUCT_URL}`,
         params: { keyword },
-        // Эти параметры добавляются к URL в строке запроса после вопросительного знака ?. https://example.com/products?keyword=car
       }),
       keepUnusedDataFor: 5,
       providesTags: ["Product"],
