@@ -20,6 +20,8 @@ const ProductCarousel = () => {
     autoplaySpeed: 3000,
   };
 
+  console.log(products, "as");
+
   return (
     <div className="mb-4 xl:block lg:block md:block">
       {isLoading ? null : error ? (

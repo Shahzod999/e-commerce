@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addToFavorites, removeFromFavorites, setFavorites } from "../../redux/features/favorites/favoriteSlice";
 
 import { addFavoriteToLocalStorage, getFavoritesFromLocalStorage, removeFavoriteFromLocalStorage } from "../../Utils/localStorage";
+import { toast } from "react-toastify";
 
 const HeartIcon = ({ product }) => {
   const dispatch = useDispatch();
@@ -19,9 +20,11 @@ const HeartIcon = ({ product }) => {
     if (isFavorite) {
       dispatch(removeFromFavorites(product));
       removeFavoriteFromLocalStorage(product._id);
+      toast.success("Deleted from Favorite");
     } else {
       dispatch(addToFavorites(product));
       addFavoriteToLocalStorage(product);
+      toast.success("Favorite");
     }
   };
 

@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 const App = () => {
   return (
     <>
-      <ToastContainer />
+      <ToastContainer /> 
       <Navigation />
       <main className="py-3">
         <Outlet />
