@@ -50,22 +50,22 @@ export const orderApiSlcie = apiSlice.injectEndpoints({
       }),
     }),
 
-    getTotalOders: builder.query({
+    getTotalOrders: builder.query({
       query: () => `${ORDERS_URL}/total-orders`,
     }),
     getTotalSales: builder.query({
       query: () => `${ORDERS_URL}/total-sales`,
     }),
-    getTotalSalesByData: builder.query({
+    getTotalSalesByDate: builder.query({
       query: () => `${ORDERS_URL}/total-sales-by-date`,
     }),
   }),
 });
 
 export const {
-  useGetTotalOdersQuery,
+  useGetTotalOrdersQuery,
   useGetTotalSalesQuery,
-  useGetTotalSalesByDataQuery,
+  useGetTotalSalesByDateQuery,
   //---------------------
   useCreateOrderMutation,
   useGetOrderDetailsQuery,
