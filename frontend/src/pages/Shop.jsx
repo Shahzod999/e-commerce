@@ -19,6 +19,8 @@ const Shop = () => {
     radio,
   });
 
+  console.log(checked, radio, "55");
+
   useEffect(() => {
     if (!categoriesQuery.isLoading) {
       dispatch(setCategories(categoriesQuery.data));
